@@ -1,0 +1,58 @@
+<p class="display-4 text-center text-info reg">REGISTRATION</p>
+  <div class="row">
+    <div class="container mb-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 round" style="background-color: rgb(235, 218, 197); max-width: 35vw;">
+      <div class="errorstatus">
+        @if(duplicateUserStatus===true){
+        <p class="text-danger fs-2 text-center">User already existed</p>
+        }
+      </div>
+      <form class="form w-75 mx-auto" [formGroup]="registerForm" (ngSubmit)="onSubmit()" #ref="ngForm">
+        <div class="my-3 merge">
+          <div class="customer">
+            <input type="radio" formControlName="registerType" id="customer" value="customer">
+            <label for="customer" class="mr-4">Customer</label>
+          </div>
+          <div class="seller">
+            <input type="radio" formControlName="registerType" id="seller" value="seller" class="ml-4">
+            <label for="admin" class="">Seller</label>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="username" class="form-label">Username:</label>
+          <input type="text" formControlName="username" id="username" class="form-control">
+          <div *ngIf="username?.invalid && (username?.dirty || username?.touched || ref.submitted)">
+            <p *ngIf="username?.errors?.['required']" class="text-danger">Username is required</p>
+            <p *ngIf="username?.errors?.['minlength']" class="text-danger">MinLength is 3</p>
+            <p *ngIf="username?.errors?.['maxlength']" class="text-danger">MaxLength is 12</p>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password:</label>
+          <input type="password" formControlName="password" id="password" class="form-control">
+          <div *ngIf="password?.invalid && (password?.dirty || password?.touched || ref.submitted)">
+            <p *ngIf="password?.errors?.['required']" class="text-danger">Password is required</p>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email:</label>
+          <input type="email" formControlName="email" id="email" class="form-control">
+          <div *ngIf="email?.invalid && (email?.dirty || email?.touched || ref.submitted)">
+            <p *ngIf="email?.errors?.['required']" class="text-danger">Email is required</p>
+            <p *ngIf="email?.errors?.['email']" class="text-danger">Enter valid Email Address</p>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="dob" class="form-label">Date of Birth:</label>
+          <input type="date" formControlName="dob" id="dob" class="form-control">
+          <div *ngIf="dob?.invalid && (dob?.dirty || dob?.touched || ref.submitted)">
+            <p *ngIf="dob?.errors?.['required']" class="text-danger">DOB is required</p>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success mb-3 d-block mx-auto">Register</button>
+      </form>
+      <div class="text-center merge">
+        <p class="mx-auto">Already registered?</p>
+        <a routerLink="/login" class="mx-auto">Login Here!</a>
+      </div>
+    </div>
+</div>

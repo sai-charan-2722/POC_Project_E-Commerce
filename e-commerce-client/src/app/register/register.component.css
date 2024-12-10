@@ -1,0 +1,14 @@
+.merge{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.round{
+    border-radius: 15px;
+}
+
+.reg{
+    font-weight: bolder;
+    font-style: italic;
+}
