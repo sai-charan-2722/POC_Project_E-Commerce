@@ -54,18 +54,19 @@ export class RegisterComponent implements OnInit{
         let newCustomer = new Customer(username, password, email, dob);
         this.customerService.createCustomer(newCustomer).subscribe({
           next: (res) => {
-            if (res.message === "Customer created") {
+            // if (res.message === "Customer created") {
+              console.log(res);
               this.router.navigate(['/login']);
               this.toast.success({
                 detail: 'Registration done',
-                summary: 'Registered as customer',
+                summary: 'Registered as CUSTOMER',
                 position: 'topRight',
                 duration: 5000
               });
-            }
-            else {
-              this.duplicateUserStatus = true;
-            }
+            // }
+            // else {
+            //   this.duplicateUserStatus = true;
+            // }
           }, error: (err: any) => {
             console.log('error in customer creation', err);
           }
@@ -76,18 +77,19 @@ export class RegisterComponent implements OnInit{
         let newSeller = new Seller(username, password, email, dob);
         this.sellerService.createSeller(newSeller).subscribe({
           next: (res) => {
-            if (res.message === "Seller created") {
+            // if (res.message === "Seller created") {
+              console.log(res);
               this.router.navigate(['/login']);
               this.toast.success({
                 detail: 'Registration done',
-                summary: 'Registered as seller',
+                summary: 'Registered as SELLER',
                 position: 'topRight',
                 duration: 5000
               });
-            }
-            else {
-              this.duplicateAdminStatus = true;
-            }
+            // }
+            // else {
+            //   this.duplicateAdminStatus = true;
+            // }
           }, error: (err:any) => {
             console.log('error in seller creation', err);
           }

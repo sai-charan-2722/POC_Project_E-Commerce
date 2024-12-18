@@ -1,0 +1,9 @@
+li a:focus{
+    background-color: rgb(209, 121, 7);
+    color: white;
+}
+
+li a{
+    color: white;
+    font-weight: bold;
+}

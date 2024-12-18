@@ -36,11 +36,11 @@ export class CustomerService {
   }
 
   createCustomer(newCustomer: Customer): Observable<any> {
-    return this.httpClient.post('http://localhost:4000/', newCustomer)
+    return this.httpClient.post('http://localhost:8080/api/users/register', newCustomer)
   }
 
   customerLogin(credobj:any): Observable<any> {
-    return this.httpClient.post('http://localhost:4000/', credobj)
+    return this.httpClient.post('http://localhost:8080/api/users/login', credobj)
   }
 
   customerLogout() {

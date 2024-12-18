@@ -1,11 +1,11 @@
 <p class="display-4 text-center text-info log">LOGIN</p>
 <div class="row">
     <div class="container mb-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 round" style="background-color: rgb(235, 218, 197); max-width: 35vw;">
-        <div class="errorstatus">
+        <!-- <div class="errorstatus">
             @if(userCredentialsError.userCredErrStatus){
             <p class="text-danger fs-3 text-center">{{userCredentialsError.userCredErrMsg}}</p>
             }
-        </div>
+        </div> -->
         <form class="form w-75 mx-auto mt-3" [formGroup]="userCredentials" (ngSubmit)="onSubmitUser()" #ref="ngForm">
             <div class="my-3 merge">
                 <div class="customer">
@@ -19,11 +19,11 @@
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email address:</label>
-                <input type="email" formControlName="email" id="email" class="form-control">
+                <input type="email" formControlName="email" id="email" class="form-control" placeholder="Enter your email">
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password:</label>
-                <input type="password" formControlName="password" id="password" class="form-control">
+                <input type="password" formControlName="password" id="password" class="form-control" placeholder="Enter your password">
             </div>
             <button type="submit" class="btn btn-success d-block mx-auto">Login</button>
         </form>

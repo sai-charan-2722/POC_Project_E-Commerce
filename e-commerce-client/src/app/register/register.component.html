@@ -1,11 +1,11 @@
 <p class="display-4 text-center text-info reg">REGISTRATION</p>
   <div class="row">
     <div class="container mb-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 round" style="background-color: rgb(235, 218, 197); max-width: 35vw;">
-      <div class="errorstatus">
+      <!-- <div class="errorstatus">
         @if(duplicateUserStatus===true){
         <p class="text-danger fs-2 text-center">User already existed</p>
         }
-      </div>
+      </div> -->
       <form class="form w-75 mx-auto" [formGroup]="registerForm" (ngSubmit)="onSubmit()" #ref="ngForm">
         <div class="my-3 merge">
           <div class="customer">
@@ -19,7 +19,7 @@
         </div>
         <div class="mb-3">
           <label for="username" class="form-label">Username:</label>
-          <input type="text" formControlName="username" id="username" class="form-control">
+          <input type="text" formControlName="username" id="username" class="form-control" placeholder="Enter username">
           <div *ngIf="username?.invalid && (username?.dirty || username?.touched || ref.submitted)">
             <p *ngIf="username?.errors?.['required']" class="text-danger">Username is required</p>
             <p *ngIf="username?.errors?.['minlength']" class="text-danger">MinLength is 3</p>
@@ -28,14 +28,14 @@
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Password:</label>
-          <input type="password" formControlName="password" id="password" class="form-control">
+          <input type="password" formControlName="password" id="password" class="form-control" placeholder="Enter password">
           <div *ngIf="password?.invalid && (password?.dirty || password?.touched || ref.submitted)">
             <p *ngIf="password?.errors?.['required']" class="text-danger">Password is required</p>
           </div>
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Email:</label>
-          <input type="email" formControlName="email" id="email" class="form-control">
+          <input type="email" formControlName="email" id="email" class="form-control" placeholder="Enter email">
           <div *ngIf="email?.invalid && (email?.dirty || email?.touched || ref.submitted)">
             <p *ngIf="email?.errors?.['required']" class="text-danger">Email is required</p>
             <p *ngIf="email?.errors?.['email']" class="text-danger">Enter valid Email Address</p>

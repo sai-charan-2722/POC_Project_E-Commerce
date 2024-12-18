@@ -21,7 +21,7 @@ export class SellerService {
   }
 
   currentSeller = new BehaviorSubject<Seller>({
-    username: '',
+    adminname: '',
     password: '',
     email: '',
     dob: ''
@@ -36,10 +36,10 @@ export class SellerService {
   }
 
   createSeller(newSeller: Seller): Observable<any> {
-    return this.httpClient.post('http://localhost:4000/', newSeller)
+    return this.httpClient.post('http://localhost:8080/api/admin/register', newSeller)
   }
 
   sellerLogin(credobj:any): Observable<any> {
-    return this.httpClient.post('http://localhost:4000/', credobj)
+    return this.httpClient.post('http://localhost:8080/api/admin/login', credobj)
   }
 }

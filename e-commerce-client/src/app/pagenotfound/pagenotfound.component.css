@@ -1,0 +1,17 @@
+.num{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20vh;
+}
+
+.number{
+    font-size: 100px;
+    font-weight: bolder;
+    color: red;
+}
+ h2{
+    font-weight: bold;
+    color: red;
+ }

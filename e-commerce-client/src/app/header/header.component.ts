@@ -1,4 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { CommonService } from '../services/common.service';
 import { CustomerService } from '../services/customer.service';
 import { SellerService } from '../services/seller.service';
 
@@ -11,8 +12,10 @@ export class HeaderComponent implements OnInit{
   customerLoginStatus:boolean = false;
   sellerLoginStatus:boolean = false;
   status:boolean = false;
+  searchQuery:string;
   customerService = inject(CustomerService);
-  sellerService = inject(SellerService)
+  sellerService = inject(SellerService);
+  commonFunctions = inject(CommonService);
   ngOnInit(): void {
     this.customerService.getCustomerLoginStatus().subscribe({
       next: (loginStatus) => {
@@ -31,6 +34,10 @@ export class HeaderComponent implements OnInit{
       }
     });
     this.status = this.customerLoginStatus || this.sellerLoginStatus;
+  }
+
+  onSearch(){
+    this.commonFunctions.setHomeSearch(this.searchQuery);
   }
 
 }

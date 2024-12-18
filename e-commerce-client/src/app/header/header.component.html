@@ -1,24 +1,30 @@
 <ul class="nav nav-pills p-2" style="justify-content: space-between;background-color: burlywood;">
-  <div class="">
+  <div class="app-logo">
       <a class="navbar-brand" href="#">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Amazon_icon.svg/2500px-Amazon_icon.svg.png" alt="Logo" width="54" height="42" class="d-inline-block align-text-center mx-3">
-        <strong style="font-size: x-large;">E-Commerce</strong>
+        <img src="../../assets/Amazon_icon.svg.png" alt="Logo" width="54" height="42" class="d-inline-block align-text-center mx-3">
+        <strong style="font-size: x-large; font-style: italic;">E-Commerce</strong>
       </a>
+  </div>
+  <div class="search-box" style="min-width: 50%;">
+    <form class="d-flex" role="search">
+      <input class="form-control me-2" type="search" placeholder="Search" name="search" [(ngModel)]="searchQuery">
+      <button class="btn btn-outline-dark" type="submit" (click)="onSearch()">Search</button>
+    </form>
   </div>
   <div style="display: flex; flex-direction: row;">
     <li class="nav-item">
-      <a class="nav-link" aria-current="page" routerLink="home" routerLinkActive="active">Home</a>
+      <a class="nav-link" aria-current="page" routerLink="home">Home</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="register" routerLinkActive="active">Register</a>
+      <a class="nav-link" routerLink="register">Register</a>
     </li>
     @if(!status){
     <li class="nav-item">
-      <a class="nav-link" routerLink="login" routerLinkActive="active">Login</a>
+      <a class="nav-link" routerLink="login">Login</a>
     </li>
     }@else{
     <li class="nav-item">
-      <a class="nav-link" routerLink="login" routerLinkActive="active">Logout</a>
+      <a class="nav-link" routerLink="login">Logout</a>
     </li>
     }
   </div>
