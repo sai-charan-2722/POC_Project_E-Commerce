@@ -14,6 +14,7 @@ import com.application.ecommerce.repo.ProductRepo;
 import com.application.ecommerce.repo.UserRepo;
 import com.application.ecommerce.model.Admin;
 import com.application.ecommerce.model.LoginRequest;
+import com.application.ecommerce.model.LoginResponse;
 import com.application.ecommerce.model.User;
 import com.application.ecommerce.model.UserPrincipal;
 
@@ -44,14 +45,19 @@ public class UserService{
 		return userRepo.save(user);
 	}
 	
-	public String verify(LoginRequest loginRequest) {
+	public LoginResponse verify(LoginRequest loginRequest) {
 		try {
 			Authentication authentication=authManager.authenticate(
 					new UsernamePasswordAuthenticationToken(
 							loginRequest.getEmail(), 
 							loginRequest.getPassword()));
 			if(authentication.isAuthenticated()) {
-				return jwtService.generateToken(loginRequest.getEmail());
+				String token=jwtService.generateToken(loginRequest.getEmail());
+				User user=userRepo.findByEmail(loginRequest.getEmail());
+				if(user==null) {
+					throw new RuntimeException("User not found");
+				}
+				return new LoginResponse(user,"Login successfull", token);
 			}
 			else {
 				throw new RuntimeException("Invalid Credentials");

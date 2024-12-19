@@ -3,6 +3,7 @@ package com.application.ecommerce.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.application.ecommerce.model.Admin;
 import com.application.ecommerce.service.AdminService;
 import com.application.ecommerce.model.LoginRequest;
+import com.application.ecommerce.model.LoginResponse;
 import com.application.ecommerce.model.Product;
 
 
@@ -33,8 +35,9 @@ public class AdminController {
 	}
 
 	@PostMapping("/login")
-	public String loginAdmin(@RequestBody LoginRequest loginRequest){
-		return adminService.verify(loginRequest);
+	public ResponseEntity<LoginResponse> loginAdmin(@RequestBody LoginRequest loginRequest){
+		LoginResponse loginResponse=adminService.verify(loginRequest);
+		return ResponseEntity.ok(loginResponse);
 	}
 	
 	@GetMapping("/products/find")

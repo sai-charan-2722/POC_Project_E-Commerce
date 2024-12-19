@@ -1,6 +1,7 @@
 package com.application.ecommerce.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.application.ecommerce.service.UserService;
 import com.application.ecommerce.model.LoginRequest;
+import com.application.ecommerce.model.LoginResponse;
 import com.application.ecommerce.model.User;
 
 
@@ -26,7 +28,8 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public String loginUser(@RequestBody LoginRequest loginRequest){
-		return userService.verify(loginRequest);
+	public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest){
+		LoginResponse loginResponse=userService.verify(loginRequest);
+		return ResponseEntity.ok(loginResponse);
 	}
 }	

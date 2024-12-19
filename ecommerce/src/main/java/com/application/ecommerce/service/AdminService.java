@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.application.ecommerce.model.Admin;
 import com.application.ecommerce.model.LoginRequest;
+import com.application.ecommerce.model.LoginResponse;
 import com.application.ecommerce.model.Product;
 import com.application.ecommerce.model.User;
 import com.application.ecommerce.model.UserPrincipal;
@@ -50,14 +51,19 @@ public class AdminService{
 		return adminRepo.save(admin);
 	}
 	
-	public String verify(LoginRequest loginRequest) {
+	public LoginResponse verify(LoginRequest loginRequest) {
 		try {
 			Authentication authentication=authManager.authenticate(
 					new UsernamePasswordAuthenticationToken(
 							loginRequest.getEmail(), 
 							loginRequest.getPassword()));
 			if(authentication.isAuthenticated()) {
-				return jwtService.generateToken(loginRequest.getEmail());
+				String token=jwtService.generateToken(loginRequest.getEmail());
+				Admin admin=adminRepo.findByEmail(loginRequest.getEmail());
+				if(admin==null) {
+					throw new RuntimeException("Admin not found");
+				}
+				return new LoginResponse(admin,"Login successfull", token);
 			}
 			else {
 				throw new RuntimeException("Invalid Credentials");
