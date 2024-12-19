@@ -26,29 +26,25 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig{
-	
 	@Autowired
 	private JwtFilter jwtFilter;
-	
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
-
 	@Bean
 	public PasswordEncoder PasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		
 		return http
 			.csrf(customizer -> customizer.disable())
 			.authorizeHttpRequests(request -> request
-					.requestMatchers("/api/admin/register","/api/admin/login","/api/users/register","/api/users/login")
+					.requestMatchers("/api/admin/register","/api/admin/login").permitAll()
+					.requestMatchers("/api/users/register","/api/users/login")
 					.permitAll()
-					.requestMatchers("/admin/**").hasRole("ADMIN")
-					.requestMatchers("/users/**").hasAnyRole("USER","ADMIN")
+					.requestMatchers("/api/admin/**").hasRole("ADMIN")
+					.requestMatchers("/api/users/**").hasRole("USER")
 					.anyRequest().authenticated())
 //			.formLogin(Customizer.withDefaults())
 			.httpBasic(Customizer.withDefaults())
@@ -56,7 +52,6 @@ public class SecurityConfig{
 			.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
 			.build();
 	}
-	
 	@Bean
 	public AuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider provider=new DaoAuthenticationProvider();
@@ -64,8 +59,6 @@ public class SecurityConfig{
 		provider.setUserDetailsService(userDetailsService);
 		return provider;
 	}
-	
-	
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
 		return config.getAuthenticationManager();

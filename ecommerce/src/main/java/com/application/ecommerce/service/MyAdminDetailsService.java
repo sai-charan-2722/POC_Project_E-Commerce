@@ -27,25 +27,24 @@ public class MyAdminDetailsService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		User user=userRepo.findByUsername(username);
+		User user=userRepo.findByEmail(username);
 		if(user!=null) {
-			return builderUserDetails(user.getEmail(),user.getPassword(),"ROLE_USER");
+			return new org.springframework.security.core.userdetails.User(
+					user.getEmail(), 
+					user.getPassword(),
+					List.of(new SimpleGrantedAuthority("ROLE_USER")));
 		}
 		
-		Admin admin=adminRepo.findByAdminname(username);
+		Admin admin=adminRepo.findByEmail(username);
 		if(admin!=null) {
-			return builderUserDetails(admin.getEmail(),admin.getPassword(),"ROLE_ADMIN");
+			return new org.springframework.security.core.userdetails.User(
+					admin.getEmail(), 
+					admin.getPassword(),
+					List.of(new SimpleGrantedAuthority("ROLE_ADMIN")));
 		}
 		
 		throw new UsernameNotFoundException("Not found with username: "+username);
 	}
 
-	private UserDetails builderUserDetails(String email, String password,String role) {
-		return org.springframework.security.core.userdetails.User.builder()
-				.username(email)
-				.password(password)
-				.authorities(Collections.singletonList(new SimpleGrantedAuthority(role)))
-				.build();
-	}
 
 }

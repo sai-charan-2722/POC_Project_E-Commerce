@@ -45,12 +45,20 @@ public class UserService{
 	}
 	
 	public String verify(LoginRequest loginRequest) {
-		Authentication authentication=
-				authManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-		if(authentication.isAuthenticated()) {
-			return jwtService.generateToken(loginRequest.getEmail());
+		try {
+			Authentication authentication=authManager.authenticate(
+					new UsernamePasswordAuthenticationToken(
+							loginRequest.getEmail(), 
+							loginRequest.getPassword()));
+			if(authentication.isAuthenticated()) {
+				return jwtService.generateToken(loginRequest.getEmail());
+			}
+			else {
+				throw new RuntimeException("Invalid Credentials");
+			}
+		} catch (Exception e) {
+			throw new RuntimeException("Login Failed: "+e.getMessage());
 		}
-		return "fail";
 	}
 	
 	
