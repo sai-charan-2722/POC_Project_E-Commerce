@@ -41,13 +41,10 @@ public class SecurityConfig{
 			.csrf(customizer -> customizer.disable())
 			.authorizeHttpRequests(request -> request
 					.requestMatchers("/api/admin/register","/api/admin/login").permitAll()
-					.requestMatchers("/api/users/register","/api/users/login")
-					.permitAll()
+					.requestMatchers("/api/users/register","/api/users/login").permitAll()
 					.requestMatchers("/api/admin/**").hasRole("ADMIN")
 					.requestMatchers("/api/users/**").hasRole("USER")
 					.anyRequest().authenticated())
-//			.formLogin(Customizer.withDefaults())
-			.httpBasic(Customizer.withDefaults())
 			.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
 			.build();

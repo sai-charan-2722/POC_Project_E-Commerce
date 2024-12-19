@@ -24,9 +24,7 @@ import io.jsonwebtoken.security.Keys;
 
 @Service
 public class JWTService {
-
 	private String secretKey="";
-	
 	public JWTService() {
 		KeyGenerator keyGen;
 		try {
@@ -37,7 +35,6 @@ public class JWTService {
 			throw new RuntimeException(e);
 		}
 	}
-	
 	public String generateToken(String email) {
 		Map<String, Object> claims=new HashMap<>();
 		return Jwts.builder()
@@ -50,16 +47,13 @@ public class JWTService {
 				.signWith(getKey())
 				.compact();
 	}
-
 	private SecretKey getKey() {
 		byte[] keyBytes=Decoders.BASE64.decode(secretKey);
 		return Keys.hmacShaKeyFor(keyBytes);
 	}
-
 	public String extractUserName(String token) {
 		return extractClaim(token, Claims::getSubject);
 	}
-	
 	private <T> T extractClaim(String token, Function<Claims, T> claimResolver) {
 		final Claims claims=extractAllClaims(token);
 		return claimResolver.apply(claims);
