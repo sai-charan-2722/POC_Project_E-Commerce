@@ -2,7 +2,7 @@
   <div class="app-logo">
       <a class="navbar-brand" href="#">
         <img src="../../assets/Amazon_icon.svg.png" alt="Logo" width="54" height="42" class="d-inline-block align-text-center mx-3">
-        <strong style="font-size: x-large; font-style: italic;">E-Commerce</strong>
+        <strong style="font-size: x-large; font-style: italic;">Black Basket</strong>
       </a>
   </div>
   <div class="search-box" style="min-width: 50%;">
@@ -24,7 +24,7 @@
     </li>
     }@else{
     <li class="nav-item">
-      <a class="nav-link" routerLink="login">Logout</a>
+      <a class="nav-link" routerLink="login" (click)="userLogout()">Logout</a>
     </li>
     }
   </div>

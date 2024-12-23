@@ -9,8 +9,11 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgToastModule } from 'ng-angular-popup';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { CustomerprofileComponent } from './customerprofile/customerprofile.component';
+import { SellerprofileComponent } from './sellerprofile/sellerprofile.component';
+import { authInterceptor } from './auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,9 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    PagenotfoundComponent
+    PagenotfoundComponent,
+    CustomerprofileComponent,
+    SellerprofileComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +34,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
     ReactiveFormsModule,
     NgToastModule
   ],
-  providers: [provideHttpClient(withFetch())],
+  providers: [provideHttpClient(withFetch()),provideHttpClient(withInterceptors([authInterceptor]))],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

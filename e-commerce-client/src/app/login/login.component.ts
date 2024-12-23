@@ -45,19 +45,19 @@ export class LoginComponent implements OnInit{
     if (formData.loginType === 'customer') {
       this.customerService.customerLogin(formData).subscribe({
         next: (res) => {
-          // if (res.message === 'login success') {
+          if (res.message === 'Login successfull') {
             console.log(res);
-            // localStorage.setItem('token', res.token);
+            localStorage.setItem('token', res.token);
             this.customerService.setCustomerLoginStatus(true);
-            this.customerService.setCurrentCustomer(res.customer);
-            // this.router.navigate([`/userprofile/${res.user.username}`]);
+            this.customerService.setCurrentCustomer(res.user);
+            this.router.navigate([`/customerprofile/${res.user.username}`]);
             this.toast.success({
               detail: 'Login Successful',
               summary: 'LoggedIn as CUSTOMER',
               position: 'topRight',
               duration: 5000
             });
-          // }
+          }
           // else {
           //   this.userCredentialsError = {
           //     userCredErrStatus: true,
@@ -72,19 +72,19 @@ export class LoginComponent implements OnInit{
     else {
       this.sellerService.sellerLogin(formData).subscribe({
         next: (res) => {
-          // if (res.message === 'login success') {
-            // localStorage.setItem('token', res.token);
+          if (res.message === 'Login successfull') {
+            localStorage.setItem('token', res.token);
             console.log(res);
             this.sellerService.setSellerLoginStatus(true);
-            this.sellerService.setCurrentSeller(res.seller);
-            // this.router.navigate([`/adminprofile/${res.user.username}`]);
+            this.sellerService.setCurrentSeller(res.user);
+            this.router.navigate([`/sellerprofile/${res.user.adminname}`]);
             this.toast.success({
               detail: 'Login Successful',
               summary: 'LoggedIn as SELLER',
               position: 'topRight',
               duration: 5000
             });
-          // }
+          }
           // else {
           //   this.userCredentialsError = {
           //     userCredErrStatus: true,

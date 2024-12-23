@@ -9,8 +9,6 @@ import { SellerService } from '../services/seller.service';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit{
-  customerLoginStatus:boolean = false;
-  sellerLoginStatus:boolean = false;
   status:boolean = false;
   searchQuery:string;
   customerService = inject(CustomerService);
@@ -19,25 +17,36 @@ export class HeaderComponent implements OnInit{
   ngOnInit(): void {
     this.customerService.getCustomerLoginStatus().subscribe({
       next: (loginStatus) => {
-        this.customerLoginStatus = loginStatus;
-      },
-      error: (err) => {
-        console.log(err);
+        this.status = loginStatus;
       }
     });
     this.sellerService.getSellerLoginStatus().subscribe({
       next: (loginStatus) => {
-        this.sellerLoginStatus = loginStatus;
-      },
-      error: (err) => {
-        console.log(err);
+        this.status = loginStatus;
       }
     });
-    this.status = this.customerLoginStatus || this.sellerLoginStatus;
   }
 
   onSearch(){
     this.commonFunctions.setHomeSearch(this.searchQuery);
+  }
+
+  userLogout() {
+    this.customerService.setCustomerLoginStatus(false);
+    this.customerService.setCurrentCustomer({
+      username: '',
+      password: '',
+      email: '',
+      dob: ''
+    });
+    this.sellerService.setSellerLoginStatus(false);
+    this.sellerService.setCurrentSeller({
+      adminname: '',
+      password: '',
+      email: '',
+      dob: ''
+    });
+    localStorage.removeItem('token')
   }
 
 }

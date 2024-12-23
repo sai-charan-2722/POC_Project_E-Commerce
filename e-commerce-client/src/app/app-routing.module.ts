@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CustomerprofileComponent } from './customerprofile/customerprofile.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { protectGuard } from './protect.guard';
 import { RegisterComponent } from './register/register.component';
+import { SellerprofileComponent } from './sellerprofile/sellerprofile.component';
 
 const routes: Routes = [
   {
@@ -16,12 +19,20 @@ const routes: Routes = [
     path:"login",
     component:LoginComponent
   },{
+    path:"customerprofile/:username",
+    component:CustomerprofileComponent,
+    canActivate:[protectGuard]
+  },{
+    path:"sellerprofile/:username",
+    component:SellerprofileComponent,
+    canActivate:[protectGuard]
+  },{
     path:'',
-    redirectTo:'home',
+    redirectTo:"home",
     pathMatch:'full'
   },
   {
-    path:'**',
+    path:"**",
     component:PagenotfoundComponent
   }
 ];
