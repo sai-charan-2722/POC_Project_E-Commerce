@@ -3,6 +3,8 @@ package com.application.ecommerce.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,6 +39,9 @@ public class AdminController {
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponse> loginAdmin(@RequestBody LoginRequest loginRequest){
 		LoginResponse loginResponse=adminService.verify(loginRequest);
+		if(loginResponse.getToken()==null) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(loginResponse);
+		}
 		return ResponseEntity.ok(loginResponse);
 	}
 	

@@ -1,6 +1,7 @@
 package com.application.ecommerce.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +31,9 @@ public class UserController {
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest){
 		LoginResponse loginResponse=userService.verify(loginRequest);
+		if(loginResponse.getToken()==null) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(loginResponse);
+		}
 		return ResponseEntity.ok(loginResponse);
 	}
 }	

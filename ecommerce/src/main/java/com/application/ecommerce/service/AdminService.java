@@ -57,17 +57,16 @@ public class AdminService{
 					new UsernamePasswordAuthenticationToken(
 							loginRequest.getEmail(), 
 							loginRequest.getPassword()));
-			if(authentication.isAuthenticated()) {
-				String token=jwtService.generateToken(loginRequest.getEmail());
-				Admin admin=adminRepo.findByEmail(loginRequest.getEmail());
+			Admin admin=adminRepo.findByEmail(loginRequest.getEmail());
+			String token=jwtService.generateToken(loginRequest.getEmail());
 				if(admin==null) {
-					throw new RuntimeException("Admin not found");
+					return new LoginResponse("Email is not correct",null,null);
 				}
-				return new LoginResponse(admin,"Login successfull", token);
-			}
-			else {
-				throw new RuntimeException("Invalid Credentials");
-			}
+				boolean isPasswordMatch=encoder.matches(loginRequest.getPassword(), admin.getPassword());
+				if(!isPasswordMatch) {
+					return new LoginResponse("Password is not correct",null,null);
+				}
+			return new LoginResponse(admin,"Login successfull", token);
 		} catch (Exception e) {
 			throw new RuntimeException("Login Failed: "+e.getMessage());
 		}
