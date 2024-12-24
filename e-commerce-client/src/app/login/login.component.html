@@ -1,11 +1,6 @@
 <p class="display-4 text-center text-info log">LOGIN</p>
 <div class="row">
     <div class="container mb-4 col-xl-6 col-lg-6 col-md-6 col-sm-12 round" style="background-color: rgb(235, 218, 197); max-width: 35vw;">
-        <!-- <div class="errorstatus">
-            @if(userCredentialsError.userCredErrStatus){
-            <p class="text-danger fs-3 text-center">{{userCredentialsError.userCredErrMsg}}</p>
-            }
-        </div> -->
         <form class="form w-75 mx-auto mt-3" [formGroup]="userCredentials" (ngSubmit)="onSubmitUser()" #ref="ngForm">
             <div class="my-3 merge">
                 <div class="customer">
@@ -16,6 +11,11 @@
                     <input type="radio" formControlName="loginType" id="seller" value="seller">
                     <label for="seller" class="">Seller</label>
                 </div>
+            </div>
+            <div class="errorstatus">
+                @if(userCredentialsError.userCredErrStatus){
+                <p class="text-danger fs-4 text-center">{{userCredentialsError.userCredErrMsg}}</p>
+                }
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email address:</label>

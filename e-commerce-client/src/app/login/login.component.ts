@@ -46,7 +46,6 @@ export class LoginComponent implements OnInit{
       this.customerService.customerLogin(formData).subscribe({
         next: (res) => {
           if (res.message === 'Login successfull') {
-            console.log(res);
             localStorage.setItem('token', res.token);
             this.customerService.setCustomerLoginStatus(true);
             this.customerService.setCurrentCustomer(res.user);
@@ -58,12 +57,12 @@ export class LoginComponent implements OnInit{
               duration: 5000
             });
           }
-          // else {
-          //   this.userCredentialsError = {
-          //     userCredErrStatus: true,
-          //     userCredErrMsg: res.message
-          //   }
-          // }
+          else {
+            this.userCredentialsError = {
+              userCredErrStatus: true,
+              userCredErrMsg: res.message
+            }
+          }
         }, error: (error) => {
           console.log('err in user login', error);
         }
@@ -74,7 +73,6 @@ export class LoginComponent implements OnInit{
         next: (res) => {
           if (res.message === 'Login successfull') {
             localStorage.setItem('token', res.token);
-            console.log(res);
             this.sellerService.setSellerLoginStatus(true);
             this.sellerService.setCurrentSeller(res.user);
             this.router.navigate([`/sellerprofile/${res.user.adminname}`]);
@@ -85,12 +83,12 @@ export class LoginComponent implements OnInit{
               duration: 5000
             });
           }
-          // else {
-          //   this.userCredentialsError = {
-          //     userCredErrStatus: true,
-          //     userCredErrMsg: res.message
-          //   }
-          // }
+          else {
+            this.userCredentialsError = {
+              userCredErrStatus: true,
+              userCredErrMsg: res.message
+            }
+          }
         }, error: (error) => {
           console.log('err in admin login', error);
         }
