@@ -2,6 +2,7 @@ package com.application.ecommerce.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -46,25 +47,17 @@ public class UserService{
 	}
 	
 	public LoginResponse verify(LoginRequest loginRequest) {
-		try {
-			Authentication authentication=authManager.authenticate(
-					new UsernamePasswordAuthenticationToken(
-							loginRequest.getEmail(), 
-							loginRequest.getPassword()));
-			if(authentication.isAuthenticated()) {
-				String token=jwtService.generateToken(loginRequest.getEmail());
-				User user=userRepo.findByEmail(loginRequest.getEmail());
+			User user=userRepo.findByEmail(loginRequest.getEmail());
+			String token=jwtService.generateToken(loginRequest.getEmail());
 				if(user==null) {
-					throw new RuntimeException("User not found");
+					return new LoginResponse(null,"Email not found",null);
 				}
-				return new LoginResponse(user,"Login successfull", token);
-			}
-			else {
-				throw new RuntimeException("Invalid Credentials");
-			}
-		} catch (Exception e) {
-			throw new RuntimeException("Login Failed: "+e.getMessage());
-		}
+				boolean isPasswordMatch=encoder.matches(loginRequest.getPassword(), user.getPassword());
+				if(!isPasswordMatch) {
+					return new LoginResponse(null,"Incorrect password",null);
+				}
+			return new LoginResponse(user,"Login successfull", token);
+		
 	}
 	
 	

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -52,25 +53,16 @@ public class AdminService{
 	}
 	
 	public LoginResponse verify(LoginRequest loginRequest) {
-		try {
-			Authentication authentication=authManager.authenticate(
-					new UsernamePasswordAuthenticationToken(
-							loginRequest.getEmail(), 
-							loginRequest.getPassword()));
 			Admin admin=adminRepo.findByEmail(loginRequest.getEmail());
 			String token=jwtService.generateToken(loginRequest.getEmail());
 				if(admin==null) {
-					return new LoginResponse("Email is not correct",null,null);
+					return new LoginResponse(null,"Email not found",null);
 				}
 				boolean isPasswordMatch=encoder.matches(loginRequest.getPassword(), admin.getPassword());
 				if(!isPasswordMatch) {
-					return new LoginResponse("Password is not correct",null,null);
+					return new LoginResponse(null,"Incorrect password",null);
 				}
 			return new LoginResponse(admin,"Login successfull", token);
-		} catch (Exception e) {
-			throw new RuntimeException("Login Failed: "+e.getMessage());
-		}
-		
 	}
 	
 	public List<Product> searchProducts(String keyword){

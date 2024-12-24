@@ -31,9 +31,6 @@ public class UserController {
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest){
 		LoginResponse loginResponse=userService.verify(loginRequest);
-		if(loginResponse.getToken()==null) {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(loginResponse);
-		}
 		return ResponseEntity.ok(loginResponse);
 	}
 }	

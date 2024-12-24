@@ -39,9 +39,6 @@ public class AdminController {
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponse> loginAdmin(@RequestBody LoginRequest loginRequest){
 		LoginResponse loginResponse=adminService.verify(loginRequest);
-		if(loginResponse.getToken()==null) {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(loginResponse);
-		}
 		return ResponseEntity.ok(loginResponse);
 	}
 	
