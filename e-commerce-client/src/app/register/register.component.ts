@@ -22,6 +22,11 @@ export class RegisterComponent implements OnInit{
   toast = inject(NgToastService)
   fb: FormBuilder = inject(FormBuilder);
   registerForm:any;
+
+  userRegError = {
+    userRegErrStatus: false,
+    userRegErrMsg: ""
+  }
   
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -54,7 +59,7 @@ export class RegisterComponent implements OnInit{
         let newCustomer = new Customer(username, password, email, dob);
         this.customerService.createCustomer(newCustomer).subscribe({
           next: (res) => {
-            // if (res.message === "Customer created") {
+            if (res.message === "Registeration Successfull") {
               console.log(res);
               this.router.navigate(['/login']);
               this.toast.success({
@@ -63,10 +68,13 @@ export class RegisterComponent implements OnInit{
                 position: 'topRight',
                 duration: 5000
               });
-            // }
-            // else {
-            //   this.duplicateUserStatus = true;
-            // }
+            }
+            else {
+              this.userRegError = {
+                userRegErrStatus: true,
+                userRegErrMsg: res.message
+              }
+            }
           }, error: (err: any) => {
             console.log('error in customer creation', err);
           }
@@ -77,7 +85,7 @@ export class RegisterComponent implements OnInit{
         let newSeller = new Seller(username, password, email, dob);
         this.sellerService.createSeller(newSeller).subscribe({
           next: (res) => {
-            // if (res.message === "Seller created") {
+            if (res.message === "Registeration Successfull") {
               console.log(res);
               this.router.navigate(['/login']);
               this.toast.success({
@@ -86,10 +94,13 @@ export class RegisterComponent implements OnInit{
                 position: 'topRight',
                 duration: 5000
               });
-            // }
-            // else {
-            //   this.duplicateAdminStatus = true;
-            // }
+            }
+            else {
+              this.userRegError = {
+                userRegErrStatus: true,
+                userRegErrMsg: res.message
+              }
+            }
           }, error: (err:any) => {
             console.log('error in seller creation', err);
           }
