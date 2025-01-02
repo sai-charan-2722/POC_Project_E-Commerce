@@ -5,12 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +12,9 @@ import com.application.ecommerce.model.Admin;
 import com.application.ecommerce.model.LoginRequest;
 import com.application.ecommerce.model.LoginResponse;
 import com.application.ecommerce.model.Product;
-import com.application.ecommerce.model.User;
-import com.application.ecommerce.model.UserPrincipal;
+import com.application.ecommerce.model.RegisterResponse;
 import com.application.ecommerce.repo.AdminRepo;
 import com.application.ecommerce.repo.ProductRepo;
-import com.mongodb.client.model.ReturnDocument;
 
 
 @Service("adminService")
@@ -41,15 +33,16 @@ public class AdminService{
 	
 	private BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
 	
-	public Admin registerAdmin(Admin admin) {
+	public RegisterResponse registerAdmin(Admin admin) {
 		if(adminRepo.findByAdminname(admin.getAdminname())!=null) {
-			throw new RuntimeException("Error:Adminname already taken!");
+			return new RegisterResponse(null,"Adminname already taken!");
 		}
 		if(adminRepo.findByEmail(admin.getEmail())!=null) {
-			throw new RuntimeException("Error:Email is already in use!");
+			return new RegisterResponse(null,"Email is already in use!");
 		}
 		admin.setPassword(encoder.encode(admin.getPassword()));
-		return adminRepo.save(admin);
+		adminRepo.save(admin);
+		return new RegisterResponse(admin,"Registeration Successfull");
 	}
 	
 	public LoginResponse verify(LoginRequest loginRequest) {
@@ -60,9 +53,9 @@ public class AdminService{
 				}
 				boolean isPasswordMatch=encoder.matches(loginRequest.getPassword(), admin.getPassword());
 				if(!isPasswordMatch) {
-					return new LoginResponse(null,"Incorrect password",null);
+					return new LoginResponse(null,"Incorrect Password",null);
 				}
-			return new LoginResponse(admin,"Login successfull", token);
+			return new LoginResponse(admin,"Login Successfull", token);
 	}
 	
 	public List<Product> searchProducts(String keyword){

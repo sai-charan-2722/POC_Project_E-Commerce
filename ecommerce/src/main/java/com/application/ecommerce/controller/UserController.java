@@ -1,7 +1,6 @@
 package com.application.ecommerce.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.application.ecommerce.service.UserService;
 import com.application.ecommerce.model.LoginRequest;
 import com.application.ecommerce.model.LoginResponse;
+import com.application.ecommerce.model.RegisterResponse;
 import com.application.ecommerce.model.User;
 
 
@@ -24,8 +24,9 @@ public class UserController {
 	private UserService userService;
 	
 	@PostMapping("/register")
-	public User registerUser(@RequestBody User user) {
-		return userService.registerUser(user);
+	public ResponseEntity<RegisterResponse> registerUser(@RequestBody User user) {
+		RegisterResponse response= userService.registerUser(user);
+		return ResponseEntity.ok(response);
 	}
 
 	@PostMapping("/login")
