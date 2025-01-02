@@ -22,6 +22,7 @@ import com.application.ecommerce.service.AdminService;
 import com.application.ecommerce.model.LoginRequest;
 import com.application.ecommerce.model.LoginResponse;
 import com.application.ecommerce.model.Product;
+import com.application.ecommerce.model.RegisterResponse;
 
 
 @RestController
@@ -32,8 +33,9 @@ public class AdminController {
 	private AdminService adminService;
 	
 	@PostMapping("/register")
-	public Admin registerAdmin(@RequestBody Admin admin) {
-		return adminService.registerAdmin(admin);
+	public ResponseEntity<RegisterResponse> registerAdmin(@RequestBody Admin admin) {
+		RegisterResponse registerResponse= adminService.registerAdmin(admin);
+		return ResponseEntity.ok(registerResponse);
 	}
 
 	@PostMapping("/login")
