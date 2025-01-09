@@ -1,0 +1,8 @@
+.header{
+    padding-top: 5%;
+    padding-left: 90%;
+}
+.button-container{
+    display: flex;
+    gap: 10px;
+}

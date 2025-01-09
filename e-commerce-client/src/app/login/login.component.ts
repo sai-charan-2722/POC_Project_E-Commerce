@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit{
     else {
       this.sellerService.sellerLogin(formData).subscribe({
         next: (res) => {
-          if (res.message === 'Login successfull') {
+          if (res.message === 'Login successfull') {  
             localStorage.setItem('token', res.token);
             this.sellerService.setSellerLoginStatus(true);
             this.sellerService.setCurrentSeller(res.user);
