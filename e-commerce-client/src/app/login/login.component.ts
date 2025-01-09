@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit{
       this.customerService.customerLogin(formData).subscribe({
         next: (res) => {
           if (res.message === 'Login successfull') {
-            localStorage.setItem('token', res.token);
+            sessionStorage.setItem('token', res.token);
             this.customerService.setCustomerLoginStatus(true);
             this.customerService.setCurrentCustomer(res.user);
             this.router.navigate([`/customerprofile/${res.user.username}`]);
@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit{
       this.sellerService.sellerLogin(formData).subscribe({
         next: (res) => {
           if (res.message === 'Login successfull') {
-            localStorage.setItem('token', res.token);
+            sessionStorage.setItem('token', res.token);
             this.sellerService.setSellerLoginStatus(true);
             this.sellerService.setCurrentSeller(res.user);
             this.router.navigate([`/sellerprofile/${res.user.adminname}`]);

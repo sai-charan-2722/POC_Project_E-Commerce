@@ -32,7 +32,7 @@
           <span class="sr-only"></span>
         </div>
     </div>
-    <div class="card" style="width: 18rem; box-shadow:initial;" *ngFor="let product of displayProducts">
+    <div class="card shadow" style="width: 18rem; box-shadow:initial;" *ngFor="let product of displayProducts">
         <img class="card-img-top" [src]="product['image']" alt="Card image cap" height="250px">
         <div class="card-body">
             <h5 class="card-title">{{product.title}}</h5>

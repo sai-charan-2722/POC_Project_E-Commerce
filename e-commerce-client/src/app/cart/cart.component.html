@@ -1,0 +1,17 @@
+<button class="btn btn-primary mx-4" (click)="navigateBack()" style="float: right; margin: 10px;">View Products</button>
+<p class="display-4 text-center" style="color: rgb(250, 150, 20); font-weight: bolder; font-style: italic;">Your Cart Products</p>
+<div class="row row-cols-sm-12 row-cols-md-12 row-cols-lg-8 row-cols-xl-8 g-4 mt-2 m-2" style="justify-content: space-evenly;">
+    <div class="card shadow" style="width: 18rem; box-shadow:initial;" *ngFor="let product of displayProducts">
+        <img class="card-img-top" [src]="product['thumbnail']" alt="Card image cap" height="250px">
+        <div class="card-body">
+            <h5 class="card-title">{{product.title}}</h5>
+            <p class="card-text" style="height:100px; overflow-y: scroll;">{{product.description}}</p>
+            <h3>{{product.price | currency:'USD'}}</h3>
+            <button class="btn btn-danger" (click)="onDelete(product)">Remove from CART</button>
+        </div>
+    </div>
+</div>
+<h1 class="text-success text-center fs-2" style="font-weight: bolder;">Total Cart value: {{totalAmount | currency:'USD'}}</h1>
+<div class="checkout" style="display: flex; justify-content: center;">
+    <button class="btn btn-primary btn-lg my-4">Checkout & Place your Order</button>
+</div>

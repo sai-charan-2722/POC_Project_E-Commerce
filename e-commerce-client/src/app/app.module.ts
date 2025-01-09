@@ -14,6 +14,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { CustomerprofileComponent } from './customerprofile/customerprofile.component';
 import { SellerprofileComponent } from './sellerprofile/sellerprofile.component';
 import { authInterceptor } from './auth.interceptor';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { authInterceptor } from './auth.interceptor';
     HomeComponent,
     PagenotfoundComponent,
     CustomerprofileComponent,
-    SellerprofileComponent
+    SellerprofileComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

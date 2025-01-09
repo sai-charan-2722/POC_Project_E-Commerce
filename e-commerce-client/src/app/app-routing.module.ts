@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CartComponent } from './cart/cart.component';
 import { CustomerprofileComponent } from './customerprofile/customerprofile.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -25,6 +26,10 @@ const routes: Routes = [
   },{
     path:"sellerprofile/:username",
     component:SellerprofileComponent,
+    canActivate:[protectGuard]
+  },{
+    path:"cart",
+    component:CartComponent,
     canActivate:[protectGuard]
   },{
     path:'',
