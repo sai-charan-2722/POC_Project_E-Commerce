@@ -55,7 +55,7 @@ public class AdminService{
 				if(!isPasswordMatch) {
 					return new LoginResponse(null,"Incorrect Password",null);
 				}
-			return new LoginResponse(admin,"Login Successfull", token);
+			return new LoginResponse(admin,"Login successfull", token);
 	}
 	
 	public List<Product> searchProducts(String keyword){

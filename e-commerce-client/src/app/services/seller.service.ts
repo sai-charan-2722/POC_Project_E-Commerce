@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Seller } from '../models/Seller';
+import { Product } from '../models/Product';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class SellerService {
   httpClient = inject(HttpClient)
 
   sellerLoginStatus = new BehaviorSubject<boolean>(false);
+  private apiUrl='https://locahost:8080/api/admin/products/update';
 
   getSellerLoginStatus(): Observable<any> {
     return this.sellerLoginStatus.asObservable();
@@ -41,5 +43,21 @@ export class SellerService {
 
   sellerLogin(credobj:any): Observable<any> {
     return this.httpClient.post('http://localhost:8080/api/admin/login', credobj)
+  }
+
+  getAllProducts():Observable<any>{
+    return this.httpClient.get("https://fakestoreapi.com/products")
+  }
+
+  updateSeller(productId:number, product:any): Observable<any>{
+    return this.httpClient.put(`${this.apiUrl}/${productId}`, product)
+  }
+
+  removeProduct(productId:number):Observable<any>{
+    return this.httpClient.delete(`http://localhost:8080/api/admin/products/remove/${productId}`)
+  }
+
+  addProduct(product:Product) :Observable<any>{
+    return this.httpClient.post(`http://localhost:8080/api/admin/products/add`,product)
   }
 }

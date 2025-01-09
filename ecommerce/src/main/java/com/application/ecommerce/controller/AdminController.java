@@ -64,4 +64,6 @@ public class AdminController {
 		adminService.removeProduct(id);
 		return "Product with id "+id+" removed successfully."; 
 	}
+	
+	
 }
