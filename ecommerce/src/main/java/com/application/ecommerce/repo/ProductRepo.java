@@ -10,7 +10,7 @@ import com.application.ecommerce.model.Product;
 @Repository
 public interface ProductRepo extends MongoRepository<Product, String>{
 
-	List<Product> findByNameContainingIgnoreCase(String keyword);
+	List<Product> findByTitleContainingIgnoreCase(String title);
 
 	
 }

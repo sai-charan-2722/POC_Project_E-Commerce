@@ -59,7 +59,7 @@ public class AdminService{
 	}
 	
 	public List<Product> searchProducts(String keyword){
-		return productRepo.findByNameContainingIgnoreCase(keyword);
+		return productRepo.findByTitleContainingIgnoreCase(keyword);
 	}
 	
 	public Product addProduct(Product product) {
@@ -83,6 +83,10 @@ public class AdminService{
 		else {
 			throw new RuntimeException("Product not found with id: "+productId);
 		}
+	}
+
+	public List<Product> getAllProducts() {
+		return productRepo.findAll();
 	}
 }
 

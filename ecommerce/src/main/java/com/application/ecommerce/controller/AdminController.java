@@ -32,6 +32,11 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
+	@GetMapping("/products/all")
+	public List<Product> getAllProduct(){
+		return adminService.getAllProducts();
+	}
+	
 	@PostMapping("/register")
 	public ResponseEntity<RegisterResponse> registerAdmin(@RequestBody Admin admin) {
 		RegisterResponse registerResponse= adminService.registerAdmin(admin);
