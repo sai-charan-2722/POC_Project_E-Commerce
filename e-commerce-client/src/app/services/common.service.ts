@@ -17,13 +17,8 @@ export class CommonService {
     this.homeSearch.set(value);
   }
 
-  getFakeProducts():Observable<any>{
-    return this.httpClient.get("https://fakestoreapi.com/products");
+  getAllProducts():Observable<any>{
+    return this.httpClient.get("http://localhost:8080/api/admin/products/all");
   }
-
-  getDummyProducts():Observable<any>{
-    return this.httpClient.get("https://dummyjson.com/products")
-  }
-
 
 }

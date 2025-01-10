@@ -19,7 +19,7 @@ export class CustomerprofileComponent {
     effect(() => {
       this.searchQuery = this.commonService.homeSearch();
   
-      this.commonService.getDummyProducts().subscribe({
+      this.commonService.getAllProducts().subscribe({
         next: (res) => {
           this.allProducts = res.products;
   

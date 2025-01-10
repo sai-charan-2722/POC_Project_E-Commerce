@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
     effect(() => {
       this.searchQuery = this.commonService.homeSearch();
 
-      this.commonService.getFakeProducts().subscribe({
+      this.commonService.getAllProducts().subscribe({
         next: (res) => {
           this.allProducts = res;
 
