@@ -43,14 +43,4 @@ export class CustomerService {
     return this.httpClient.post('http://localhost:8080/api/users/login', credobj)
   }
 
-  customerLogout() {
-    this.setCustomerLoginStatus(false);
-    this.setCurrentCustomer({
-      username: '',
-      password: '',
-      email: '',
-      dob: ''
-    });
-    localStorage.removeItem('token')
-  }
 }

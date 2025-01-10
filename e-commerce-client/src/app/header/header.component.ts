@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit{
       email: '',
       dob: ''
     });
-    localStorage.removeItem('token')
+    sessionStorage.removeItem('token');
   }
 
 }
