@@ -1,32 +1,38 @@
 <div class="header">
-    <button class="btn btn-primary" (click)="addProduct()">Add Items</button>
+    <button class="btn btn-primary" (click)="openPopUp()">Add Items</button>
 </div>
-<div *ngIf="showAddProductForm" class="add-product-form">
-    <form [formGroup]="addProductForm" (ngSubmit)="onSubmit()" class="row g-3">
-        <div class="col-md-6">
-            <label for="title">Product Name:</label>
-            <input id="title" type="text" formControlName="title" required/>
+<div *ngIf="showAddProductForm" class="product-form" (click)="closeOverLay($event)">
+    <div class="content" style="background-color: rgb(240, 220, 175);">
+        <h4 class="text-center">Add your product</h4>
+        <div class="close" (click)="closePopUp()">
+            &times;
         </div>
-        <div class="col-md-6">
-            <label for="price">Price:</label>
-            <input id="price" type="number" formControlName="price" required/>
-        </div>
-        <div class="col-md-12">
-            <label for="description">Description:</label>
-            <textarea id="description" formControlName="description" cols="30" rows="10"></textarea>
-        </div>
-        <div class="col-12">
-            <label for="image">Image URL:</label>
-            <input id="image" type="text" formControlName="image" required/>
-        </div>
-        <div class="col-12">
-            <button type="submit" [disabled]="addProductForm.invalid">Submit</button>
-        </div>
-    </form>
+        <form [formGroup]="addProductForm" (ngSubmit)="onSubmit()" class="row g-3">
+            <div class="col-md-6">
+                <label for="title" class="form-label">Product Name:</label>
+                <input id="title" class="form-control" type="text" formControlName="title" required/>
+            </div>
+            <div class="col-md-6">
+                <label for="price" class="form-label">Price:</label>
+                <input id="price" class="form-control" type="number" formControlName="price" required/>
+            </div>
+            <div class="col-md-12">
+                <label for="description" class="form-label">Description:</label>
+                <textarea id="description" class="form-control" formControlName="description" cols="30" rows="3"></textarea>
+            </div>
+            <div class="col-12">
+                <label for="image" class="form-label">Image URL:</label>
+                <input id="image" class="form-control" type="text" formControlName="image" required/>
+            </div>
+            <div class="col-12">
+                <button type="submit" [disabled]="addProductForm.invalid" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <div class="row row-cols-sm-12 row-cols-md-12 row-cols-lg-8 row-cols-xl-8 g-4 mt-2 m-2" style="justify-content: space-evenly;">
-    <div class="d-flex justify-content-center" *ngIf="!isLoading && displayProducts.length==0">
+    <div class="d-flex justify-content-center" *ngIf="displayProducts.length==0">
         <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
           <span class="sr-only"></span>
         </div>

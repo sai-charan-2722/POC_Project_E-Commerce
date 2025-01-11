@@ -6,3 +6,31 @@
     display: flex;
     gap: 10px;
 }
+
+.product-form{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.5);
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.content{
+    width: 500px;
+    height: 450px;
+    background-color: #fff;
+    padding: 25px;
+    z-index: 1;
+}
+
+.close{
+    position: relative;
+    top: -40px;
+    padding-left: 435px;
+    cursor: pointer;
+}

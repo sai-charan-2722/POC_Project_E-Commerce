@@ -1,3 +1,4 @@
+<button class="btn btn-primary mx-4" routerLink="/cart" style="float: right; margin: 10px;">My Cart</button>
 <p class="display-4 text-center" style="color: rgb(250, 150, 20); font-weight: bolder; font-style: italic;">Products</p>
 <div class="row row-cols-sm-12 row-cols-md-12 row-cols-lg-8 row-cols-xl-8 g-4 mt-2 m-2" style="justify-content: space-evenly;">
     <div class="d-flex justify-content-center" *ngIf="!displayProducts">
@@ -6,7 +7,7 @@
         </div>
     </div>
     <div class="card shadow" style="width: 18rem; box-shadow:initial;" *ngFor="let product of displayProducts">
-        <img class="card-img-top" [src]="product['thumbnail']" alt="Card image cap" height="250px">
+        <img class="card-img-top" [src]="product['image']" alt="Card image cap" height="250px">
         <div class="card-body">
             <h5 class="card-title">{{product.title}}</h5>
             <p class="card-text" style="height:100px; overflow-y: scroll;">{{product.description}}</p>

@@ -21,7 +21,7 @@ export class CustomerprofileComponent {
   
       this.commonService.getAllProducts().subscribe({
         next: (res) => {
-          this.allProducts = res.products;
+          this.allProducts = res;
   
           if (this.searchQuery === "") {
             this.displayProducts = this.allProducts;

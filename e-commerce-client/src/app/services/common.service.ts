@@ -21,4 +21,15 @@ export class CommonService {
     return this.httpClient.get("http://localhost:8080/api/admin/products/all");
   }
 
+  addProduct(newProduct:any):Observable<any>{
+    return this.httpClient.post("http://localhost:8080/api/admin/products/add",newProduct);
+  }
+
+  updateProduct(product:any):Observable<any>{
+    return this.httpClient.put(`http://localhost:8080/api/admin/products/update/${product.id}`,product);
+  }
+
+  deleteProduct(productId:any):Observable<any>{
+    return this.httpClient.delete(`http://localhost:8080/api/admin/products/remove/${productId}`);
+  }
 }
