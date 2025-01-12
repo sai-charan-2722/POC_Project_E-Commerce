@@ -1,6 +1,7 @@
 import { Component, OnInit, effect, inject } from '@angular/core';
 import { CommonService } from '../services/common.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SellerService } from '../services/seller.service';
 
 @Component({
   selector: 'app-sellerprofile',
@@ -13,7 +14,7 @@ export class SellerprofileComponent implements OnInit {
   showAddProductForm: boolean = false;
 
 
-  constructor(private fb: FormBuilder, private commonService: CommonService) { }
+  constructor(private fb: FormBuilder, private commonService: CommonService, private sellerService:SellerService) { }
 
   ngOnInit(): void {
     this.addProductForm = this.fb.group({
@@ -60,7 +61,7 @@ export class SellerprofileComponent implements OnInit {
   }
 
   loadProducts(): void {
-    this.commonService.getAllProducts().subscribe({
+    this.sellerService.getAllProducts().subscribe({
       next:(products: any) => {
         this.displayProducts = products;
       },

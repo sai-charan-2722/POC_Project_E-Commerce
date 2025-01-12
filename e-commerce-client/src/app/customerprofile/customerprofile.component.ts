@@ -1,6 +1,7 @@
 import { Component, inject, effect } from '@angular/core';
 import { NgToastService } from 'ng-angular-popup';
 import { CommonService } from '../services/common.service';
+import { CustomerService } from '../services/customer.service';
 
 @Component({
   selector: 'app-customerprofile',
@@ -10,6 +11,7 @@ import { CommonService } from '../services/common.service';
 export class CustomerprofileComponent {
 
   commonService = inject(CommonService);
+  customerService=inject(CustomerService);
   toast = inject(NgToastService);
   searchQuery: string;
   allProducts: any[];
@@ -19,7 +21,7 @@ export class CustomerprofileComponent {
     effect(() => {
       this.searchQuery = this.commonService.homeSearch();
   
-      this.commonService.getAllProducts().subscribe({
+      this.customerService.getAllProducts().subscribe({
         next: (res) => {
           this.allProducts = res;
   

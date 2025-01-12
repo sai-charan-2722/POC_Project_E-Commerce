@@ -1,6 +1,7 @@
 import { effect } from '@angular/core';
 import { Component, inject, OnChanges, OnInit } from '@angular/core';
 import { CommonService } from '../services/common.service';
+import { SellerService } from '../services/seller.service';
 
 @Component({
   selector: 'app-home',
