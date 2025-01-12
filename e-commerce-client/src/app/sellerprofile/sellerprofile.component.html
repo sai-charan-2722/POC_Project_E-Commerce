@@ -1,8 +1,7 @@
-<div class="header">
-    <button class="btn btn-primary" (click)="openPopUp()">Add Items</button>
-</div>
+<button class="btn btn-primary mx-4" (click)="openPopUp()" style="float: right; margin: 10px;">Add Product</button>
+<p class="display-4 text-center" style="color: rgb(250, 150, 20); font-weight: bolder; font-style: italic;">Products for Sale</p>
 <div *ngIf="showAddProductForm" class="product-form" (click)="closeOverLay($event)">
-    <div class="content" style="background-color: rgb(240, 220, 175);">
+    <div class="content" style="background-color: rgb(240, 220, 175); border-radius: 10px;">
         <h4 class="text-center">Add your product</h4>
         <div class="close" (click)="closePopUp()">
             &times;
@@ -10,19 +9,19 @@
         <form [formGroup]="addProductForm" (ngSubmit)="onSubmit()" class="row g-3">
             <div class="col-md-6">
                 <label for="title" class="form-label">Product Name:</label>
-                <input id="title" class="form-control" type="text" formControlName="title" required/>
+                <input id="title" class="form-control" type="text" formControlName="title" placeholder="Enter product name"/>
             </div>
             <div class="col-md-6">
                 <label for="price" class="form-label">Price:</label>
-                <input id="price" class="form-control" type="number" formControlName="price" required/>
+                <input id="price" class="form-control" type="number" formControlName="price" placeholder="Enter price"/>
             </div>
             <div class="col-md-12">
                 <label for="description" class="form-label">Description:</label>
-                <textarea id="description" class="form-control" formControlName="description" cols="30" rows="3"></textarea>
+                <textarea id="description" class="form-control" formControlName="description" cols="30" rows="3" placeholder="Describe your product"></textarea>
             </div>
             <div class="col-12">
                 <label for="image" class="form-label">Image URL:</label>
-                <input id="image" class="form-control" type="text" formControlName="image" required/>
+                <input id="image" class="form-control" type="text" formControlName="image" placeholder="Enter image URL"/>
             </div>
             <div class="col-12">
                 <button type="submit" [disabled]="addProductForm.invalid" class="btn btn-primary">Submit</button>

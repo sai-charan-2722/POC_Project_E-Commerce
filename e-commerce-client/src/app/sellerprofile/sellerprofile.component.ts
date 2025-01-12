@@ -1,6 +1,7 @@
 import { Component, OnInit, effect, inject } from '@angular/core';
 import { CommonService } from '../services/common.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-sellerprofile',
@@ -9,11 +10,34 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class SellerprofileComponent implements OnInit {
   addProductForm!: FormGroup;
+  searchQuery: string;
+  allProducts: any[];
   displayProducts: any[] = [];
   showAddProductForm: boolean = false;
+  toast = inject(NgToastService);
 
 
-  constructor(private fb: FormBuilder, private commonService: CommonService) { }
+  constructor(private fb: FormBuilder, private commonService: CommonService) {
+    effect(() => {
+      this.searchQuery = this.commonService.homeSearch();
+
+      this.commonService.getAllProducts().subscribe({
+        next: (res) => {
+          this.allProducts = res;
+
+          if (this.searchQuery === "") {
+            this.displayProducts = this.allProducts;
+          }
+          this.displayProducts = this.allProducts.filter((product) => {
+            return product.title.toLowerCase().includes(this.searchQuery.toLowerCase());
+          })
+        },
+        error:(err)=>{
+          console.error("Error fetching products",err);
+        }
+      })
+    })
+   }
 
   ngOnInit(): void {
     this.addProductForm = this.fb.group({
@@ -22,7 +46,6 @@ export class SellerprofileComponent implements OnInit {
       description: ['', Validators.required],
       image: ['', Validators.required]
     });
-    this.loadProducts();
   }
   openPopUp(): void {
     this.showAddProductForm = true;
@@ -51,23 +74,19 @@ export class SellerprofileComponent implements OnInit {
         next: (response: any) => {
           this.displayProducts.push(response);
           this.addProductForm.reset();
+          this.closePopUp();
+          this.toast.success({
+            detail: 'Product added successfully',
+            summary: `${newProduct.title}`,
+            position: 'topRight',
+            duration: 5000
+          });
         },
         error: (error) => {
           console.error('Error adding product:', error);
         }
       });
     }
-  }
-
-  loadProducts(): void {
-    this.commonService.getAllProducts().subscribe({
-      next:(products: any) => {
-        this.displayProducts = products;
-      },
-      error:(error) => {
-        console.error('Error fetching products:', error);
-      }
-    });
   }
 
   updateSeller(product: any): void {
@@ -79,6 +98,12 @@ export class SellerprofileComponent implements OnInit {
       next:(response: any) => {
         console.log('Product updated successfully:', response);
         product.isEditing = false;
+        this.toast.success({
+          detail: 'Product updated successfully',
+          summary: `${response.title}`,
+          position: 'topRight',
+          duration: 5000
+        });
       },
       error:(error) => {
         console.error('Error Updating product', error);
@@ -88,18 +113,23 @@ export class SellerprofileComponent implements OnInit {
 
   cancelEdit(product: any): void {
     product.isEditing = false;
-    this.loadProducts();
   }
 
   removeProduct(productId: number): void {
     if (confirm('Are you sure you want to delete this product?')) {
 
+      this.displayProducts = this.displayProducts.filter(
+        (pro) => pro.id !== productId
+      );
       this.commonService.deleteProduct(productId).subscribe({
         next:(response: any) => {
           console.log('Product deleted successfully:',response);
-          this.displayProducts = this.displayProducts.filter(
-            (pro) => pro.id !== productId
-          );
+          this.toast.error({
+            detail: 'Product deleted successfully',
+            summary: `${response.title}`,
+            position: 'topRight',
+            duration: 5000
+          });
         },
         error:(error) => {
           console.error('Error deleting product:', error);
