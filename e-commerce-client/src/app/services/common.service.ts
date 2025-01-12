@@ -18,7 +18,7 @@ export class CommonService {
   }
 
   getAllProducts():Observable<any>{
-    return this.httpClient.get("http://localhost:8080/api/admin/products/all");
+    return this.httpClient.get("http://localhost:8080/api/products/all");
   }
 
   addProduct(newProduct:any):Observable<any>{

@@ -2,6 +2,7 @@ import { Component, OnInit, effect, inject } from '@angular/core';
 import { CommonService } from '../services/common.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
+import { SellerService } from '../services/seller.service';
 
 @Component({
   selector: 'app-sellerprofile',
@@ -17,11 +18,11 @@ export class SellerprofileComponent implements OnInit {
   toast = inject(NgToastService);
 
 
-  constructor(private fb: FormBuilder, private commonService: CommonService) {
+  constructor(private fb: FormBuilder, private commonService: CommonService, private sellerService:SellerService) {
     effect(() => {
       this.searchQuery = this.commonService.homeSearch();
 
-      this.commonService.getAllProducts().subscribe({
+      this.sellerService.getAllProducts().subscribe({
         next: (res) => {
           this.allProducts = res;
 

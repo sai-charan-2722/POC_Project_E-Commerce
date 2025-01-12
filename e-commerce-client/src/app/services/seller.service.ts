@@ -46,7 +46,7 @@ export class SellerService {
   }
 
   getAllProducts():Observable<any>{
-    return this.httpClient.get("https://fakestoreapi.com/products")
+    return this.httpClient.get("http://localhost:8080/api/admin/products/all")
   }
 
   updateSeller(productId:number, product:any): Observable<any>{
