@@ -76,9 +76,11 @@ public class AdminService{
 		throw new RuntimeException("Product not found with id: "+productId);
 	}
 	
-	public void removeProduct(String productId) {
+	public Optional<Product> removeProduct(String productId) {
 		if(productRepo.existsById(productId)) {
+			Optional<Product> deletedProduct= productRepo.findById(productId);
 			productRepo.deleteById(productId);
+			return deletedProduct;
 		}
 		else {
 			throw new RuntimeException("Product not found with id: "+productId);

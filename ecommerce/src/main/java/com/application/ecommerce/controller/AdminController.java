@@ -1,10 +1,9 @@
 package com.application.ecommerce.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -65,9 +64,8 @@ public class AdminController {
 	}
 	
 	@DeleteMapping("/products/remove/{id}")
-	public String removeProduct(@PathVariable String id) {
-		adminService.removeProduct(id);
-		return "Product with id "+id+" removed successfully."; 
+	public Optional<Product> removeProduct(@PathVariable String id) {
+		return adminService.removeProduct(id);
 	}
 	
 	

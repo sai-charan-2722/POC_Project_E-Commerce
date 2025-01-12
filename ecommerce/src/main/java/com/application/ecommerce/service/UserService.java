@@ -5,7 +5,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.application.ecommerce.repo.ProductRepo;
 import com.application.ecommerce.repo.UserRepo;
 import com.application.ecommerce.model.LoginRequest;
 import com.application.ecommerce.model.LoginResponse;
@@ -16,9 +15,6 @@ import com.application.ecommerce.model.User;
 public class UserService{
 	@Autowired
 	private UserRepo userRepo;
-
-	@Autowired
-	private ProductRepo productRepo;
 	
 	@Autowired
 	AuthenticationManager authManager;
