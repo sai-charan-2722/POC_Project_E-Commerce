@@ -17,9 +17,6 @@ public class UserService{
 	private UserRepo userRepo;
 	
 	@Autowired
-	AuthenticationManager authManager;
-	
-	@Autowired
 	private JWTService jwtService;
 	
 	private BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();

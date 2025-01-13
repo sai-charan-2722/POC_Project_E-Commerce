@@ -12,7 +12,6 @@ export class SellerService {
   httpClient = inject(HttpClient)
 
   sellerLoginStatus = new BehaviorSubject<boolean>(false);
-  private apiUrl='https://locahost:8080/api/admin/products/update';
 
   getSellerLoginStatus(): Observable<any> {
     return this.sellerLoginStatus.asObservable();
@@ -47,17 +46,5 @@ export class SellerService {
 
   getAllProducts():Observable<any>{
     return this.httpClient.get("http://localhost:8080/api/admin/products/all")
-  }
-
-  updateSeller(productId:number, product:any): Observable<any>{
-    return this.httpClient.put(`${this.apiUrl}/${productId}`, product)
-  }
-
-  removeProduct(productId:number):Observable<any>{
-    return this.httpClient.delete(`http://localhost:8080/api/admin/products/remove/${productId}`)
-  }
-
-  addProduct(product:Product) :Observable<any>{
-    return this.httpClient.post(`http://localhost:8080/api/admin/products/add`,product)
   }
 }

@@ -16,7 +16,6 @@ import com.application.ecommerce.model.RegisterResponse;
 import com.application.ecommerce.repo.AdminRepo;
 import com.application.ecommerce.repo.ProductRepo;
 
-
 @Service("adminService")
 public class AdminService{
 	@Autowired
@@ -24,10 +23,7 @@ public class AdminService{
 	
 	@Autowired
 	private ProductRepo productRepo;
-	
-	@Autowired
-	AuthenticationManager authManager;
-	
+
 	@Autowired
 	private JWTService jwtService;
 	
@@ -70,6 +66,8 @@ public class AdminService{
 		Optional<Product> existingProduct= productRepo.findById(productId);
 		if(existingProduct.isPresent()) {
 			Product product=existingProduct.get();
+			product.setTitle(updatedProduct.getTitle());
+			product.setDescription(updatedProduct.getDescription());
 			product.setPrice(updatedProduct.getPrice());
 			return productRepo.save(product);
 		}
