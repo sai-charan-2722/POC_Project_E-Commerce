@@ -1,5 +1,55 @@
 <button class="btn btn-primary mx-4" (click)="navigateBack()" style="float: right; margin: 10px;">View Products</button>
 <p class="display-4 text-center" style="color: rgb(250, 150, 20); font-weight: bolder; font-style: italic;">Your Cart Products</p>
+<div *ngIf="showAddressForm" class="address-form" (click)="closeOverLay($event)">
+    <div class="content" style="background-color: rgb(240, 220, 175); border-radius: 10px;">
+        <h4 class="text-center">Add your Delivery Address</h4>
+        <div class="close" (click)="closePopUp()">
+            &times;
+        </div>
+        <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" class="row g-3">
+            <div class="col-md-12">
+                <input type="checkbox" id="existingAddress" formControlName="existingAddress">
+                <label for="existingAddress" class="form-label">Deliver to Existing Address</label>
+            </div>
+            <hr>
+            <div class="col-md-6">
+                <label for="fullName" class="form-label">Full Name:</label>
+                <input id="fullName" class="form-control" type="text" formControlName="fullName" placeholder="Enter your full name"/>
+            </div>
+            <div class="col-md-6">
+                <label for="mobile" class="form-label">Mobile Number:</label>
+                <input id="mobile" class="form-control" type="tel" formControlName="mobileNo" placeholder="Enter your mobile num"/>
+            </div>
+            <div class="col-md-12">
+                <label for="houseNo" class="form-label">Flat, House no., Building, Company, Apartment:</label>
+                <input id="houseNo" class="form-control" formControlName="houseNo"/>
+            </div>
+            <div class="col-12">
+                <label for="area" class="form-label">Area, Street, Sector, Village:</label>
+                <input id="area" class="form-control" type="text" formControlName="area"/>
+            </div>
+            <div class="col-md-6">
+                <label for="landMark" class="form-label">Land Mark:</label>
+                <input id="landMark" class="form-control" type="text" formControlName="landMark"/>
+            </div>
+            <div class="col-md-6">
+                <label for="pinCode" class="form-label">Pin Code:</label>
+                <input id="pinCode" class="form-control" type="number" formControlName="pinCode"/>
+            </div>
+            <div class="col-md-6">
+                <label for="city" class="form-label">City:</label>
+                <input id="city" class="form-control" type="text" formControlName="city"/>
+            </div>
+            <div class="col-md-6">
+                <label for="state" class="form-label">State:</label>
+                <input id="state" class="form-control" type="text" formControlName="state"/>
+            </div>
+            <div class="col-12">
+                <button type="submit" [disabled]="addressForm.invalid && !addressForm.get('existingAddress')?.value" class="btn btn-primary">Deliver to this address</button>
+            </div>
+        </form>
+    </div>
+</div>
 <div class="row row-cols-sm-12 row-cols-md-12 row-cols-lg-8 row-cols-xl-8 g-4 mt-2 m-2" style="justify-content: space-evenly;">
     <div class="card shadow" style="width: 18rem; box-shadow:initial;" *ngFor="let product of displayProducts">
         <img class="card-img-top" [src]="product['image']" alt="Card image cap" height="250px">
@@ -13,5 +63,5 @@
 </div>
 <h1 class="text-success text-center fs-2" style="font-weight: bolder;">Total Cart value: {{totalAmount | currency:'USD'}}</h1>
 <div class="checkout" style="display: flex; justify-content: center;">
-    <button class="btn btn-primary btn-lg my-4">Checkout & Place your Order</button>
+    <button class="btn btn-primary btn-lg my-4" [disabled]="displayProducts.length===0" (click)="placeOrder()">Checkout & Place your Order</button>
 </div>

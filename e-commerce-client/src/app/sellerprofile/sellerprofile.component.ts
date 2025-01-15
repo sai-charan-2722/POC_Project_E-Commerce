@@ -10,7 +10,7 @@ import { SellerService } from '../services/seller.service';
   styleUrl: './sellerprofile.component.css'
 })
 export class SellerprofileComponent implements OnInit {
-  addProductForm!: FormGroup;
+  addProductForm: FormGroup;
   searchQuery: string;
   allProducts: any[];
   displayProducts: any[] = [];
@@ -58,7 +58,7 @@ export class SellerprofileComponent implements OnInit {
 
   closeOverLay(e:any){
     if(e.target.classList.contains("product-form")){
-      this.showAddProductForm = false;
+      this.closePopUp();
     }
   }
 
