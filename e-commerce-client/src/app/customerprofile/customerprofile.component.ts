@@ -27,10 +27,14 @@ export class CustomerprofileComponent {
   
           if (this.searchQuery === "") {
             this.displayProducts = this.allProducts;
+            return;
+          }else{
+            this.commonService.findProduct(this.searchQuery).subscribe({
+              next:(res)=>{
+                this.displayProducts = res;
+              }
+            })
           }
-          this.displayProducts = this.allProducts.filter((product) => {
-            return product.title.toLowerCase().includes(this.searchQuery.toLowerCase());
-          })
         }
       })
     })
@@ -38,6 +42,8 @@ export class CustomerprofileComponent {
 
   onAdd(product:any){
     product['status'] = "CART";
+    product['total'] = product.price;
+    product['selectedQuantity'] = 1;
     this.commonService.cartProducts.push(product);
     this.toast.success({
       detail: 'Added to Cart',

@@ -57,7 +57,10 @@
             <h5 class="card-title">{{product.title}}</h5>
             <p class="card-text" style="height:100px; overflow-y: scroll;">{{product.description}}</p>
             <h3>{{product.price | currency:'USD'}}</h3>
-            <button class="btn btn-danger" (click)="onDelete(product)">Remove from CART</button>
+            <span class="mr-2"><strong>Select Quantity: </strong></span><button style="background-color: tomato; border-style: none; border-radius: 10%;" (click)="decreaseAmount(product)">-</button>
+            {{product.selectedQuantity}}
+            <button style="background-color: darkolivegreen; border-style: none; border-radius: 10%;" (click)="increaseAmount(product)">+</button>
+            <button class="btn btn-danger mt-2" (click)="onDelete(product)">Remove from CART</button>
         </div>
     </div>
 </div>

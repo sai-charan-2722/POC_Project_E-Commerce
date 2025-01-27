@@ -30,10 +30,14 @@ export class HomeComponent implements OnInit {
 
           if (this.searchQuery === "") {
             this.displayProducts = this.allProducts;
+            return;
+          }else{
+            this.commonService.findProduct(this.searchQuery).subscribe({
+              next:(res)=>{
+                this.displayProducts = res;
+              }
+            })
           }
-          this.displayProducts = this.allProducts.filter((product) => {
-            return product.title.toLowerCase().includes(this.searchQuery.toLowerCase());
-          })
         }
       })
     })

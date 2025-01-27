@@ -12,11 +12,20 @@ export class CommonService {
   httpClient = inject(HttpClient);
   homeSearch= signal("");
   cartProducts:any[] = [];
+  loggedInUserId = signal("");
 
   setHomeSearch(value:any){
     this.homeSearch.set(value);
   }
 
+  setLoggedInUserId(value:any){
+    this.loggedInUserId.set(value);
+  }
+
+  findProduct(keyword:string):Observable<any>{
+    return this.httpClient.get(`http://localhost:8080/api/products/find/${keyword}`);
+  }
+  
   getAllProducts():Observable<any>{
     return this.httpClient.get("http://localhost:8080/api/products/all");
   }

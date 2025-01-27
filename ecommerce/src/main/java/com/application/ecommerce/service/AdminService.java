@@ -53,9 +53,6 @@ public class AdminService{
 			return new LoginResponse(admin,"Login successfull", token);
 	}
 	
-	public List<Product> searchProducts(String keyword){
-		return productRepo.findByTitleContainingIgnoreCase(keyword);
-	}
 	
 	public Product addProduct(Product product) {
 		return productRepo.save(product);

@@ -27,11 +27,9 @@ export class CartComponent implements OnInit{
   ngOnInit(): void {
     this.totalAmount = 0;
     this.displayProducts = this.commonService.cartProducts;
-    this.customerService.getCurrentCustomer().subscribe({
-      next:(res)=>{this.currentCustomer = res.username}
-    })
+    this.currentCustomer = this.commonService.loggedInUserId();
     this.displayProducts.forEach((pro)=>{
-      this.totalAmount += pro.price; 
+      this.totalAmount += pro.total;
     })
     
     this.addressForm = this.fb.group({
@@ -61,6 +59,38 @@ export class CartComponent implements OnInit{
       position: 'topRight',
       duration: 5000
     });
+  }
+
+  decreaseAmount(product){
+    let currentQuantity = product.selectedQuantity;
+    let price = product.price;
+
+    if(currentQuantity>0){
+      product.selectedQuantity = currentQuantity - 1;
+      product.total = (currentQuantity - 1)*price;
+    }
+    if(product.selectedQuantity === 0){
+      this.onDelete(product);
+    }
+
+    this.totalAmount = 0;
+    this.displayProducts.forEach((pro)=>{
+      this.totalAmount += pro.total;
+    })
+
+  }
+
+  increaseAmount(product){
+    let currentQuantity = product.selectedQuantity;
+    let price = product.price;
+
+    product.selectedQuantity = currentQuantity + 1;
+    product.total = (currentQuantity + 1)*price;
+    
+    this.totalAmount = 0;
+    this.displayProducts.forEach((pro)=>{
+      this.totalAmount += pro.total;
+    })
   }
 
   placeOrder(){

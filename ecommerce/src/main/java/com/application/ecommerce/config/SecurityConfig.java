@@ -29,7 +29,7 @@ public class SecurityConfig{
 			.csrf(customizer -> customizer.disable())
 			.authorizeHttpRequests(request -> request
 					.requestMatchers(WHITE_LIST_URL).permitAll()
-					.requestMatchers("/api/admin/register","/api/admin/login","/api/products/all").permitAll()
+					.requestMatchers("/api/admin/register","/api/admin/login","/api/products/all","api/products/find/{keyword}").permitAll()
 					.requestMatchers("/api/users/register","/api/users/login").permitAll()
 					.requestMatchers("/admin/**").hasRole("ADMIN")
 					.requestMatchers("/users/**").hasAnyRole("USER","ADMIN")

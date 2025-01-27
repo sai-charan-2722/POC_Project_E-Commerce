@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
+import { CommonService } from '../services/common.service';
 import { CustomerService } from '../services/customer.service';
 import { SellerService } from '../services/seller.service';
 
@@ -14,6 +15,7 @@ export class LoginComponent implements OnInit{
 
   fb: FormBuilder = inject(FormBuilder);
   customerService = inject(CustomerService);
+  commonService = inject(CommonService);
   sellerService = inject(SellerService);
   toast = inject(NgToastService);
   router = inject(Router);
@@ -49,7 +51,8 @@ export class LoginComponent implements OnInit{
             sessionStorage.setItem('token', res.token);
             this.customerService.setCustomerLoginStatus(true);
             this.customerService.setCurrentCustomer(res.user);
-            this.router.navigate([`/customerprofile/${res.user.username}`]);
+            this.commonService.setLoggedInUserId(res.user.id);
+            this.router.navigate([`/customerprofile/${res.user.id}`]);
             this.toast.success({
               detail: 'Login Successful',
               summary: 'LoggedIn as CUSTOMER',
@@ -75,7 +78,8 @@ export class LoginComponent implements OnInit{
             sessionStorage.setItem('token', res.token);
             this.sellerService.setSellerLoginStatus(true);
             this.sellerService.setCurrentSeller(res.user);
-            this.router.navigate([`/sellerprofile/${res.user.adminname}`]);
+            this.commonService.setLoggedInUserId(res.user.id);
+            this.router.navigate([`/sellerprofile/${res.user.id}`]);
             this.toast.success({
               detail: 'Login Successful',
               summary: 'LoggedIn as SELLER',

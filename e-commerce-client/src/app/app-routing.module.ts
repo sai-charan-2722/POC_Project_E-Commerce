@@ -20,11 +20,11 @@ const routes: Routes = [
     path:"login",
     component:LoginComponent
   },{
-    path:"customerprofile/:username",
+    path:"customerprofile/:id",
     component:CustomerprofileComponent,
     canActivate:[protectGuard]
   },{
-    path:"sellerprofile/:username",
+    path:"sellerprofile/:id",
     component:SellerprofileComponent,
     canActivate:[protectGuard]
   },{
